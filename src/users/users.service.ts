@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'types/usersType';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -52,12 +51,6 @@ export class UsersService {
 
     // return one user discriminated by id from db
     findeOne(id: number): User {
-        const user = this.users.find((user) => user.id === id) as User;
-        if (!user) {
-            // Exception that send an error message if user is not found
-            throw new NotFoundException("User not found"); 
-        }
-        return user;
         const user = this.users.find((user) => user.id === id) as User;
         if (!user) {
             // Exception that send an error message if user is not found
