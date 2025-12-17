@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { User } from 'types/usersType';
 
@@ -16,7 +16,7 @@ export class UsersController {
     // Get request takes a parameter: id, and calls userServices method findOne()
     @Get(':id')
     @HttpCode(200)
-    findOne(@Param('id') id: string): User {
+    findOne(@Param('id', ParseIntPipe) id: Number): User {
         return this.userServices.findeOne(id);
     }
 
@@ -40,14 +40,14 @@ export class UsersController {
     // Patch request takes a parameter: id, and an input: user, and calls userServices method update()
     @Patch()
     @HttpCode(200)
-    update(@Param('id') id: string, @Body() user: User): User {
+    update(@Param('id', ParseIntPipe) id: Number, @Body() user: User): User {
         return this.userServices.update(id, user);
     }
 
     // Delete request takes a parameter: id, and calls userServices method delete()
     @Delete()
     @HttpCode(200)
-    delete(@Param('id') id: string): String {
+    delete(@Param('id', ParseIntPipe) id: Number): String {
         return this.userServices.delete(id);
     }
 }
