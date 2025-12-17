@@ -9,30 +9,35 @@ export class UsersService {
             id: 1, 
             name: 'John Doe', 
             email: 'a@a.fr',
+            password: 'password1234',
             role: 'admin'
         },
         {
             id: 2, 
             name: 'Jane Doe', 
             email: 'b@b.fr',
+            password: 'password1234',
             role: 'user',
         }, 
         {
             id: 3, 
             name: 'Céline Martin', 
             email: 'c@c.fr', 
+            password: 'password1234',
             role: 'user'
         },
         {
             id: 4, 
             name: 'Jean Dupont', 
             email: 'd@d.fr', 
+            password: 'password1234',
             role: 'user',
         }, 
         {
             id: 5, 
             name: 'Akiko Suzuki', 
             email: 'e@e.fr', 
+            password: 'password1234',
             role: 'user'
         }
     ]
