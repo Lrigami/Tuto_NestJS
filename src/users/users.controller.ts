@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { User } from 'types/usersType';
 
@@ -18,6 +18,16 @@ export class UsersController {
     @HttpCode(200)
     findOne(@Param('id') id: string): User {
         return this.userServices.findeOne(id);
+    }
+
+    // Allows to filter collections with specific parameters
+    @Get()
+    @HttpCode(200)
+    findAllWithQuery(
+        @Query('page') page: string, 
+        @Query('limit') limit: string,
+    ): string {
+        return `Page ${page}, limit: ${limit}`;
     }
 
     // Post request takes an input: user, and calls userServices method create()
