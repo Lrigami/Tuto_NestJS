@@ -1,14 +1,16 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { User } from 'types/usersType';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly userServices: UsersService) {}
 
     // Get request calls userServices method findAll()
+    @UseGuards(AuthGuard) // to use a guard on a specific request 
     @Get()
     @HttpCode(200)
     findAll(): User[] {
