@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'types/usersType';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -48,16 +50,16 @@ export class UsersService {
     } 
 
     // return one user discriminated by id from db
-    findeOne(id: Number): User {
+    findeOne(id: number): User {
         return this.users.find((user) => user.id === id) as User;
     }
 
     // add a new user into db, return the newly created user 
-    create(user: User): User {
+    create(createUser: CreateUserDto): User {
         // since id isn't autoincremented yet, do it manually
         const newId = this.users.length + 1;
         const newUser = {
-            ...user, 
+            ...createUser, 
             id: newId,
         };
         this.users.push(newUser);
@@ -65,15 +67,15 @@ export class UsersService {
     }
 
     // update an existing user, return the updated user
-    update(id: Number, user: User): User {
+    update(id: number, updateUser: UpdateUserDto): User {
         // discriminate by id
         const index = this.users.findIndex((user) => user.id === id);
-        this.users[index] = user;
-        return user;
+        this.users[index] = { ...updateUser, id};
+        return this.users[index];
     }
 
     // delete an existing user, return a string
-    delete(id: Number): string {
+    delete(id: number): string {
         this.users = this.users.filter((user) => user.id !== id);
         return "User deleted successfully";
     }
