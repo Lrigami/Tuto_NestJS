@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe()); // Allow to use personalised DTO
   app.useGlobalGuards(new AuthGuard()); // Allow AuthGuard to be used globally
+  app.setGlobalPrefix('api/v1') // Gives a prefix to URL
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
