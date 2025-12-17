@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'types/usersType';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -51,7 +51,12 @@ export class UsersService {
 
     // return one user discriminated by id from db
     findeOne(id: number): User {
-        return this.users.find((user) => user.id === id) as User;
+        const user = this.users.find((user) => user.id === id) as User;
+        if (!user) {
+            // Exception that send an error message if user is not found
+            throw new NotFoundException("User not found"); 
+        }
+        return user;
     }
 
     // add a new user into db, return the newly created user 
@@ -70,6 +75,9 @@ export class UsersService {
     update(id: number, updateUser: UpdateUserDto): User {
         // discriminate by id
         const index = this.users.findIndex((user) => user.id === id);
+        if (!index) {
+            throw new NotFoundException("User not found")
+        }
         this.users[index] = { ...updateUser, id};
         return this.users[index];
     }
